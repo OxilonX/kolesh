@@ -1,0 +1,56 @@
+import express, { Application, Request, Response, Router } from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import { createServer } from "http";
+import { Server as SocketServer } from "socket.io";
+import { auth } from "./lib/auth.js";
+import { toNodeHandler } from "better-auth/node";
+import prisma from "./lib/prisma.js";
+
+const app: Application = express();
+const httpServer = createServer(app);
+
+const io = new SocketServer(httpServer, {
+  cors: {
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    credentials: true,
+  }),
+);
+app.use(cookieParser());
+app.use(express.json());
+app.all(/^\/api\/auth\/.*$/, toNodeHandler(auth));
+
+app.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok" });
+});
+
+io.on("connection", (socket) => {
+  console.log("Client connected:", socket.id);
+
+  socket.on("join-room", (roomId: string) => {
+    socket.join(roomId);
+  });
+
+  socket.on("leave-room", (roomId: string) => {
+    socket.leave(roomId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
+  });
+});
+
+const PORT = process.env.PORT || 4000;
+
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+export { app, prisma, io };
