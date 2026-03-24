@@ -1,4 +1,3 @@
-
 datasource db {
   provider = "postgresql"
 }
@@ -7,16 +6,29 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id               String     @id
+  name             String
+  age              Int
+  gender           Gender
+  email            String
+  emailVerified    Boolean    @default(false)
+  image            String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  sessions         Session[]
+  accounts         Account[]
+  settings         Settings[]
+  tasks            Tasks[]
+  goals            Goals[]
+  sentRequests     Friends[]  @relation("SentRequests")
+  receivedRequests Friends[]  @relation("ReceivedRequests")
+  notes            Notes[]
 
   @@unique([email])
   @@map("user")
@@ -68,4 +80,71 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Friends {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  isAccepted Boolean  @default(false)
+  senderId   String
+  sender     User     @relation("SentRequests", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedRequests", fields: [receiverId], references: [id])
+
+  @@unique([senderId, receiverId])
+}
+
+model Notes {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("notes")
+}
+
+model Tasks {
+  id        String   @id @default(cuid())
+  name      String
+  isDone    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  goalsId   String
+  goals     Goals    @relation(fields: [goalsId], references: [id])
+
+  @@map("tasks")
+}
+
+model Goals {
+  id         String    @id @default(cuid())
+  name       String
+  createdAt  DateTime  @default(now())
+  endDate    DateTime?
+  priority   BigInt    @default(1000)
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  tasks      Tasks[]
+  categoryId String
+  categories Category  @relation(fields: [categoryId], references: [id])
+
+  @@map("goals")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @default("all")
+  createdAt DateTime @default(now())
+  goals     Goals[]
+
+  @@map("categories")
+}
+
+model Settings {
+  id     String @id @default(cuid())
+  userId String @unique
+  theme  String @default("main")
+  mode   String @default("dark")
+  user   User   @relation(fields: [userId], references: [id])
 }
