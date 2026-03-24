@@ -1,13 +1,13 @@
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
-## **agents.md: Nawadz**
+## **agents.md: Kolesh**
 
 ### Project Identity & Vision
-App Name: Nawadz
+App Name: Kolesh
 
-Concept: A centralized professional hub and social ecosystem for the Algerian Developer community.
+Concept: A Personal Dashboard that has everything you need daily.
 
-Purpose: A platform for developers in Algeria to communicate, share their work, and showcase their professional portfolios through profile-based posts and community interaction.
+Purpose: A platform for People in Algeria to communicate, share their work, and showcase their Ideas and feeling through chat, shared notes and whiteboard and community interaction.
 
 
 ### Technical Stack (The Law)
@@ -61,7 +61,7 @@ Implementation: Use the Next.js Metadata API exclusively for all routes.
 
 Static Metadata: Defined in the root layout with a global title template.
 
-Dynamic Metadata: Required for all profiles and posts using generateMetadata to reflect the specific context.
+Dynamic Metadata: Required for all profiles using generateMetadata to reflect the specific context.
 
 Robots & Sitemap: Programmatic robots.ts and sitemap.ts files to manage indexing of the platform structure.
 
@@ -89,8 +89,7 @@ Database Safety: Rely on Prisma ORM for all queries to prevent SQL Injection. Do
 XSS Prevention: Manually sanitize user-generated content (Posts/Portfolios) before rendering to prevent malicious script injection.
 
 ### Current Focus
-Milestone: Initializing the core monorepo structure, user authentication,and main feautures like :
-posts, explore posts , profiles (Portfolios) also DMs and group chats.
+Milestone: Initializing the core monorepo structure, user authentication,and main feautures.
 
 
 ### Boundaries 
