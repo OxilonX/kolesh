@@ -1,18 +1,33 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-export function TabsDisabled() {
+import {
+  IconLayoutDashboard,
+  IconMessages,
+  IconTargetArrow,
+  IconCalendar,
+  IconSettings,
+} from "@tabler/icons-react";
+export default function Navbar() {
   return (
-    <Tabs orientation="vertical" defaultValue="home">
-      <TabsList>
-        <TabsTrigger value="home">Dashboard</TabsTrigger>
-        <TabsTrigger value="chat" >
-          Chat
+    <Tabs
+      orientation="vertical"
+      defaultValue="home"
+      className=" h-full w-full p-2"
+    >
+      <TabsList className="flex !flex-col !gap-2 !p-0 !bg-transparent !h-full !w-full">
+        <TabsTrigger className="bg-muted/40 rounded-xl w-full " value="home">
+          <IconLayoutDashboard /> Dashboard
         </TabsTrigger>
-        <TabsTrigger value="goals" >
-          Goals
+        <TabsTrigger className="bg-muted/40 rounded-xl" value="chat">
+          <IconMessages /> Chat
         </TabsTrigger>
-        <TabsTrigger value="calendar" >
-          Calendar
+        <TabsTrigger className="bg-muted/40 rounded-xl" value="goals">
+          <IconTargetArrow /> Goals
+        </TabsTrigger>
+        <TabsTrigger className="bg-muted/40 rounded-xl" value="calendar">
+          <IconCalendar /> Calendar
+        </TabsTrigger>
+        <TabsTrigger className="bg-muted/40 rounded-xl" value="settings">
+          <IconSettings /> Settings
         </TabsTrigger>
       </TabsList>
     </Tabs>

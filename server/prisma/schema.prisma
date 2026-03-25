@@ -141,10 +141,46 @@ model Category {
   @@map("categories")
 }
 
+enum SocialPlatform {
+  DISCORD
+  GITHUB
+  INSTAGRAM
+  X
+  WHATSAPP
+  YOUTUBE
+  KICK
+  TIKTOK
+  TWITCH
+  FACEBOOK
+  MESSANGER
+  TELEGRAM
+  PINTEREST
+}
+
+model Socials {
+  id         String         @id @default(cuid())
+  name       SocialPlatform
+  settingsId String
+  settings   Settings       @relation(fields: [settingsId], references: [id])
+
+  @@unique([settingsId, name])
+  @@map("socials")
+}
+
+model Choices {
+  id        String   @id @default(cuid())
+  name      String
+  Image     String   @default("/images/default_choice.jpg")
+  createdAt DateTime @default(now())
+}
+
 model Settings {
-  id     String @id @default(cuid())
-  userId String @unique
-  theme  String @default("main")
-  mode   String @default("dark")
-  user   User   @relation(fields: [userId], references: [id])
+  id      String    @id @default(cuid())
+  userId  String    @unique
+  theme   String    @default("main")
+  mode    String    @default("dark")
+  user    User      @relation(fields: [userId], references: [id])
+  socials Socials[]
+
+  @@map("settings")
 }
