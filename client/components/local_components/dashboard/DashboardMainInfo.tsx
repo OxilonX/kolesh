@@ -2,12 +2,12 @@
 //shadcn imports
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 //next imports
-import { Slider } from "@/components/ui/slider";
+import { Progress } from "@/components/ui/progress";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { useState } from "react";
 const DashboardMainInfo = () => {
-  const [sliderValue, setSliderValue] = useState<number[]>([20]);
+  const [progessValue, setprogessValue] = useState<number>(29);
   return (
     <Card className="h-full w-full bg-card-secondary">
       <CardContent className="flex flex-col flex-1 min-h-0">
@@ -26,13 +26,17 @@ const DashboardMainInfo = () => {
             </p>
             <div className="mt-4">
               <div className="flex items-center justify-between mb-3">
-                <Label htmlFor="goals-slider">Goals</Label>
+                <Label htmlFor="goals-progress">Goals</Label>
                 <span className="text-sm text-muted-foreground">
-                  {sliderValue.join(", ")}
+                  {progessValue}%
                 </span>
               </div>
 
-              <Slider id="goals-slider" value={sliderValue} min={0} max={100} />
+              <Progress
+                className="h-4 rounded-xs"
+                id="goals-progress"
+                value={progessValue}
+              />
             </div>
           </div>
           <div className="relative shrink-0 w-56 h-56 overflow-hidden rounded-full ">

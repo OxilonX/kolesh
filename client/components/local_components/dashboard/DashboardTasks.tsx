@@ -9,7 +9,7 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
       <CardContent className="flex flex-col flex-1 min-h-0 p-4 overflow-y-auto no-scrollbar gap-4">
         <CardHeader className="px-0 shrink-0">
           <CardTitle className="flex items-center justify-between gap-2">
-            <h2>Today Tasks</h2>
+            <h2>Today </h2>
             <Button className="hover:bg-primary/70 transition-all duration-300">
               <IconPlus />
               Add Task
@@ -20,7 +20,7 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
           <ul className="grid grid-cols-1 gap-2">
             <span className="flex flex-col  text-base font-bold text-yellow-500 ">
               Pending
-              <hr className="w-full my-1 rounded-full bg-muted-foreground " />
+              <hr className="w-full my-0.5 rounded-full bg-muted-foreground " />
             </span>
             {dummyTasks
               .filter((t: any) => !t.isChecked)
@@ -49,9 +49,9 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
                   </div>
                 </li>
               ))}
-            <span className="pt-4 flex flex-col  text-base font-bold text-primary ">
+            <span className="pt-1 flex flex-col  text-base font-bold text-primary ">
               Done
-              <hr className="w-full my-1 rounded-full bg-muted-foreground " />
+              <hr className="w-full my-0.5 rounded-full bg-muted-foreground " />
             </span>
             {dummyTasks
               .filter((t: any) => t.isChecked)
@@ -83,9 +83,14 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
           </ul>
         ) : (
           <div className="flex flex-1 items-center justify-center min-h-0">
-            <p className="text-lg text-muted-foreground font-medium">
-              You have no tasks for today.
-            </p>
+            <div className="text-center space-y-1">
+              <h3 className="text-sm font-bold text-foreground tracking-tight">
+                All caught up
+              </h3>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
+                No tasks for today. Enjoy your time.
+              </p>
+            </div>
           </div>
         )}
       </CardContent>
