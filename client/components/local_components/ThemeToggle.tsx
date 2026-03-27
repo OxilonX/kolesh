@@ -18,7 +18,7 @@ export default function ThemeToggle() {
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none ",
+        "cursor-pointer relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none ",
         isDark ? "bg-primary/20" : "bg-muted",
       )}
       aria-label="Toggle Theme"

@@ -26,7 +26,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="flex flex-col gap-2 p-4 h-full w-full bg-transparent">
+    <nav className="flex flex-col gap-4 p-4 h-full w-full bg-transparent">
       {navItems.map((item) => {
         const isActive = pathname === item.href;
 

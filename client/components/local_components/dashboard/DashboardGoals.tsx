@@ -10,7 +10,9 @@ const DashboardGoals = ({ dummyGoals }: { dummyGoals: any }) => {
       <CardContent className="flex flex-col flex-1 min-h-0 p-4 overflow-y-auto no-scrollbar gap-4">
         <CardHeader className="px-0 shrink-0">
           <CardTitle className="flex items-center justify-between gap-2">
-            <h2>Goals</h2>
+            <h2 className="text-foreground text-2xl font-black uppercase">
+              Goals
+            </h2>
             <Button className="hover:bg-primary/70 transition-all duration-300">
               <IconPlus />
               Add goal
@@ -19,7 +21,7 @@ const DashboardGoals = ({ dummyGoals }: { dummyGoals: any }) => {
         </CardHeader>
         {dummyGoals.length > 0 ? (
           <ul className="grid grid-cols-1 gap-2">
-            <span className="flex flex-col  text-base font-bold text-primary ">
+            <span className="flex flex-col  text-base font-bold text-muted-foreground ">
               My goals
               <hr className="w-full my-0.5 rounded-full bg-muted-foreground " />
             </span>

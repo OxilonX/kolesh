@@ -16,15 +16,19 @@ export default function SelectLanguage() {
 
   return (
     <Select defaultValue="en">
-      <SelectTrigger>
+      <SelectTrigger className={"cursor-pointer"}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent
         position={alignItemWithTrigger ? "item-aligned" : "popper"}
       >
         <SelectGroup>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="ar">Frensh</SelectItem>
+          <SelectItem className={"cursor-pointer"} value="en">
+            English
+          </SelectItem>
+          <SelectItem className={"cursor-pointer"} value="ar">
+            Frensh
+          </SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

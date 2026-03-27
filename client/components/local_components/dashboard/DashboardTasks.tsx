@@ -9,7 +9,9 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
       <CardContent className="flex flex-col flex-1 min-h-0 p-4 overflow-y-auto no-scrollbar gap-4">
         <CardHeader className="px-0 shrink-0">
           <CardTitle className="flex items-center justify-between gap-2">
-            <h2>Today </h2>
+            <h2 className="text-foreground text-2xl font-black uppercase">
+              Today
+            </h2>
             <Button className="hover:bg-primary/70 transition-all duration-300">
               <IconPlus />
               Add Task
@@ -18,7 +20,7 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
         </CardHeader>
         {dummyTasks.length > 0 ? (
           <ul className="grid grid-cols-1 gap-2">
-            <span className="flex flex-col  text-base font-bold text-yellow-500 ">
+            <span className="flex flex-col  text-base font-bold text-muted-foreground">
               Pending
               <hr className="w-full my-0.5 rounded-full bg-muted-foreground " />
             </span>
@@ -49,7 +51,7 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
                   </div>
                 </li>
               ))}
-            <span className="pt-1 flex flex-col  text-base font-bold text-primary ">
+            <span className="pt-1 flex flex-col  text-base font-bold text-muted-foreground ">
               Done
               <hr className="w-full my-0.5 rounded-full bg-muted-foreground " />
             </span>
