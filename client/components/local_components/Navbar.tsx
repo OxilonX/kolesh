@@ -11,7 +11,7 @@ export default function Navbar() {
     <Tabs
       orientation="vertical"
       defaultValue="home"
-      className=" h-full w-full p-2"
+      className=" h-full w-full p-4"
     >
       <TabsList className="flex !flex-col !gap-2 !p-0 !bg-transparent !h-full !w-full">
         <TabsTrigger className="bg-muted/40 rounded-xl w-full " value="home">

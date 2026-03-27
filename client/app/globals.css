@@ -4,6 +4,7 @@
 
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(:not(.dark) *));
 
 @theme inline {
   --color-background: var(--background);
@@ -40,6 +41,7 @@
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
+  --color-card-secondary:var(--card-secondary);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --radius-sm: calc(var(--radius) * 0.6);
@@ -69,16 +71,18 @@
 :root {
   --background: oklch(0.9940 0 0);
   --foreground: oklch(0 0 0);
-  --card: oklch(0.9940 0 0);
-  --card-foreground: oklch(0 0 0);
-  --popover: oklch(0.9911 0 0);
+--card: oklch(0.985 0.002 240);
+  --card-secondary: oklch(95.973% 0.00525 248.355);
+
+  --card-foreground: oklch(0.15 0 0);
+    --popover: oklch(0.9911 0 0);
   --popover-foreground: oklch(0 0 0);
   --primary: oklch(0.5393 0.2713 286.7462);
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.9540 0.0063 255.4755);
   --secondary-foreground: oklch(0.1344 0 0);
-  --muted: oklch(0.9702 0 0);
-  --muted-foreground: oklch(0.4386 0 0);
+  --muted: oklch(74.369% 0.00341 15.872);
+  --muted-foreground: oklch(56.073% 0.00244 15.794);
   --accent: oklch(0.9393 0.0288 266.3680);
   --accent-foreground: oklch(0.5445 0.1903 259.4848);
   --destructive: oklch(0.6290 0.1902 23.0704);
@@ -108,6 +112,7 @@
   --background: oklch(0.2223 0.0060 271.1393);
   --foreground: oklch(0.9551 0 0);
   --card: oklch(0.2568 0.0076 274.6528);
+  --card-secondary: oklch(26.964% 0.00938 276.746);
   --card-foreground: oklch(0.9551 0 0);
   --popover: oklch(0.2568 0.0076 274.6528);
   --popover-foreground: oklch(0.9551 0 0);
@@ -115,7 +120,7 @@
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.2940 0.0130 272.9312);
   --secondary-foreground: oklch(0.9551 0 0);
-  --muted: oklch(0.2940 0.0130 272.9312);
+  --muted: oklch(57.214% 0.00201 248.596);
   --muted-foreground: oklch(0.7058 0 0);
   --accent: oklch(0.2795 0.0368 260.0310);
   --accent-foreground: oklch(0.7857 0.1153 246.6596);
@@ -143,6 +148,15 @@
 }
 *{
   box-sizing: border-box
+}
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
 }
 @layer base {
   * {

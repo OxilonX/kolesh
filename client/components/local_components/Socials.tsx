@@ -8,7 +8,7 @@ const Socials = () => {
   return (
     <div className=" flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xs">Social Media</h2>
+        <h2 className="text-xs">Bookmarks</h2>
         <Button size={"xs"}>
           <IconPencil />
           Edit
