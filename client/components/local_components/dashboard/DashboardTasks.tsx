@@ -4,16 +4,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
-  {
-    /* <span className="text-sm text-primary font-bold flex flex-col gap-2 w-full  rounded-full">
-            Pending
-            <hr className="bg-muted w-full" />
-          </span> */
-  }
   return (
-    <Card className=" min-h-full ">
-      <CardContent className="flex flex-col gap-4 ">
-        <CardHeader className="px-0">
+    <Card className=" bg-card-secondary border h-[240px] overflow-y-auto ">
+      <CardContent className="flex flex-col flex-1 min-h-0 p-4 overflow-y-auto no-scrollbar gap-4">
+        <CardHeader className="px-0 shrink-0">
           <CardTitle className="flex items-center justify-between gap-2">
             <h2>Today Tasks</h2>
             <Button className="hover:bg-primary/70 transition-all duration-300">
@@ -23,30 +17,73 @@ const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
           </CardTitle>
         </CardHeader>
         {dummyTasks.length > 0 ? (
-          <ul className="  grid grid-cols-1 gap-2">
-            {dummyTasks.map((t: any) => (
-              <li
-                key={t.id}
-                className="gap-2 flex items-center justify-between  rounded-md bg-muted/10 p-3 "
-              >
-                <p
-                  title={t.task}
-                  className={`text-sm font-medium text-muted-foreground truncate ${t.isChecked ? "line-through" : ""}`}
+          <ul className="grid grid-cols-1 gap-2">
+            <span className="flex flex-col  text-base font-bold text-yellow-500 ">
+              Pending
+              <hr className="w-full my-1 rounded-full bg-muted-foreground " />
+            </span>
+            {dummyTasks
+              .filter((t: any) => !t.isChecked)
+              .map((t: any, i: any) => (
+                <li
+                  key={i}
+                  className="gap-2 flex items-center justify-between rounded-md bg-muted/10 p-3"
                 >
-                  {t.task}
-                </p>
-                <div className="">
-                  <Checkbox
-                    checked={t.isChecked}
-                    className="w-6 h-6 rounded-full !bg-muted/50 data-[state=checked]:!bg-primary"
-                  />
-                </div>
-              </li>
-            ))}
+                  <div className="flex flex-col  gap-1 flex-1 min-w-0">
+                    <p
+                      title={t.task}
+                      className={`text-sm font-medium text-muted-foreground truncate ${t.isChecked ? "line-through" : ""}`}
+                    >
+                      {t.task}
+                    </p>
+                    <span className="text-[0.6rem] text-muted font-medium">
+                      {t.date}
+                    </span>
+                  </div>
+
+                  <div className="">
+                    <Checkbox
+                      checked={t.isChecked}
+                      className="w-6 h-6 rounded-full !bg-muted/50 data-[state=checked]:!bg-primary"
+                    />
+                  </div>
+                </li>
+              ))}
+            <span className="pt-4 flex flex-col  text-base font-bold text-primary ">
+              Done
+              <hr className="w-full my-1 rounded-full bg-muted-foreground " />
+            </span>
+            {dummyTasks
+              .filter((t: any) => t.isChecked)
+              .map((t: any, i: any) => (
+                <li
+                  key={i}
+                  className="gap-2 flex items-center justify-between rounded-md bg-muted/10 p-3"
+                >
+                  <div className="flex flex-col  gap-1 flex-1 min-w-0">
+                    <p
+                      title={t.task}
+                      className={`text-sm font-medium text-muted-foreground truncate ${t.isChecked ? "line-through" : ""}`}
+                    >
+                      {t.task}
+                    </p>
+                    <span className="text-[0.6rem] text-muted font-medium">
+                      {t.date}
+                    </span>
+                  </div>
+
+                  <div className="">
+                    <Checkbox
+                      checked={t.isChecked}
+                      className="w-6 h-6 rounded-full !bg-muted/50 data-[state=checked]:!bg-primary"
+                    />
+                  </div>
+                </li>
+              ))}
           </ul>
         ) : (
-          <div className="flex items-center justify-center h-full w-full">
-            <p className="text-lg text-muted-foreground font-medium ">
+          <div className="flex flex-1 items-center justify-center min-h-0">
+            <p className="text-lg text-muted-foreground font-medium">
               You have no tasks for today.
             </p>
           </div>

@@ -5,7 +5,7 @@ const layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return <section>{children}</section>;
+  return <section className="max-h-full">{children}</section>;
 };
 
 export default layout;

@@ -9,8 +9,8 @@ import { useState } from "react";
 const DashboardMainInfo = () => {
   const [sliderValue, setSliderValue] = useState<number[]>([20]);
   return (
-    <Card className="w-full bg-card-secondary">
-      <CardContent>
+    <Card className="h-full w-full bg-card-secondary">
+      <CardContent className="flex flex-col flex-1 min-h-0">
         <CardHeader className="flex items-center justify-between gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-black text-foreground">
