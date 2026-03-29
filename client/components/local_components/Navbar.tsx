@@ -8,8 +8,13 @@ import {
   IconMessages,
   IconTargetArrow,
   IconSettings,
+  IconFlag,
 } from "@tabler/icons-react";
-
+//shadcn imports
+import { Button } from "../ui/button";
+//local comps imports
+import SelectLanguage from "./SelectLanguage";
+import ThemeToggle from "./ThemeToggle";
 export default function Navbar() {
   const pathname = usePathname();
 
@@ -27,6 +32,15 @@ export default function Navbar() {
 
   return (
     <nav className="flex flex-col gap-4 p-4 h-full w-full bg-transparent">
+      <div className="flex items-center justify-between gap-2 ">
+        <Button variant={"outline"}>
+          <IconFlag />
+        </Button>
+        <div className="flex items-center gap-2">
+          <SelectLanguage />
+          <ThemeToggle />
+        </div>
+      </div>
       {navItems.map((item) => {
         const isActive = pathname === item.href;
 

@@ -1,13 +1,14 @@
 //local comps imports
 import ChatSideMenu from "@/components/local_components/chat/ChatSideMenu";
 import ChatDisscussion from "@/components/local_components/chat/ChatDisscussion";
+
 const ChatPage = () => {
   return (
-    <div className="h-screen grid grid-cols-[300px_1fr] overflow-y-auto no-scrollbar gap-2 p-2 ">
-      <aside className="h-full overflow-y-auto no-scrollbar">
+    <div className="h-[calc(100vh-3.2rem)] grid grid-cols-[300px_1fr] gap-2 p-2">
+      <aside className="overflow-hidden rounded-lg">
         <ChatSideMenu />
       </aside>
-      <div className="h-full overflow-y-auto no-scrollbar">
+      <div className="overflow-hidden rounded-lg">
         <ChatDisscussion />
       </div>
     </div>

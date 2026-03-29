@@ -15,7 +15,7 @@ import {
 
 const ChatDisscussion = () => {
   return (
-    <Card className="flex flex-col w-full h-full  m-0 border-none shadow-none bg-card-secondary ">
+    <Card className="flex flex-col w-full h-full m-0 bg-card-secondary">
       <CardHeader className="shrink-0 px-4 py-0 border-b">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -47,12 +47,12 @@ const ChatDisscussion = () => {
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col min-h-0 p-4 gap-4 overflow-hidden">
+      <CardContent className="flex-1 flex flex-col min-h-0 p-4 pb-0 gap-4 overflow-hidden">
         <div className="flex-1 overflow-y-auto min-h-0 mb-6 custom-scrollbar">
           <ChatLayout />
         </div>
 
-        <div className="sticky bottom-6 shrink-0 pt-2 ">
+        <div className="sticky bottom-0 shrink-0 pt-2 ">
           <div className="flex items-center gap-2">
             <div className="relative flex-1 group">
               <Input
