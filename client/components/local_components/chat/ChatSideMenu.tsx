@@ -54,8 +54,11 @@ const ChatSideMenu = () => {
       </CardHeader>
       <CardContent className="h-full pb-0 px-2 overflow-y-auto">
         <ul className="flex flex-col gap-2">
-          {dummyContacts.map((contact, i) => (
-            <ChatContactCard key={i} contact={contact as personProp} />
+          {dummyContacts.map((contact) => (
+            <ChatContactCard
+              key={`${contact.name}-${contact.time}`}
+              contact={contact}
+            />
           ))}
         </ul>
       </CardContent>

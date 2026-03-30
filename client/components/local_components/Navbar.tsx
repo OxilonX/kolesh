@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <nav className="flex flex-col gap-4 p-4 h-full w-full bg-transparent">
       <div className="flex items-center justify-between gap-2 ">
-        <Button variant={"outline"}>
+        <Button variant={"outline"} aria-label="Flag">
           <IconFlag />
         </Button>
         <div className="flex items-center gap-2">
