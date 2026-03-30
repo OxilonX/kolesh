@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 const DashboardTasks = ({ dummyTasks }: { dummyTasks: any }) => {
   return (
-    <Card className=" bg-card-secondary border h-[240px] overflow-y-auto ">
+    <Card className=" bg-card-secondary border h-[230px] overflow-y-auto ">
       <CardContent className="flex flex-col flex-1 min-h-0 p-4 overflow-y-auto no-scrollbar gap-4">
         <CardHeader className="px-0 shrink-0">
           <CardTitle className="flex items-center justify-between gap-2">

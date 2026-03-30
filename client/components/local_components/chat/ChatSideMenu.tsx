@@ -15,17 +15,17 @@ const dummyContacts: personProp[] = [
     time: "14:20",
   },
   {
-    name: "Karim",
+    name: "Dounia",
     lastMessage: "Check your Dell laptop for the logs.",
     time: "00:05",
   },
   {
-    name: "Karim",
+    name: "Kedour",
     lastMessage: "Check your Dell laptop for the logs.",
     time: "00:05",
   },
   {
-    name: "Karim",
+    name: "Rahma",
     lastMessage: "Check your Dell laptop for the logs.",
     time: "00:05",
   },
