@@ -24,10 +24,10 @@ export default function SelectLanguage() {
       >
         <SelectGroup>
           <SelectItem className={"cursor-pointer"} value="en">
-            English
+            en
           </SelectItem>
           <SelectItem className={"cursor-pointer"} value="ar">
-            Frensh
+            fr
           </SelectItem>
         </SelectGroup>
       </SelectContent>
