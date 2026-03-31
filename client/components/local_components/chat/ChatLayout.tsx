@@ -46,7 +46,7 @@ export const dummyMessages: chatBulbProps[] = [
 const ChatLayout = () => {
   return (
     <div className="h-full">
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-4 px-2">
         <li>
           {dummyMessages.map((msg, i) => (
             <div

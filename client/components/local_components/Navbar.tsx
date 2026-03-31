@@ -20,8 +20,8 @@ export default function Navbar() {
 
   const navItems = [
     { name: "Dashboard", href: "/", icon: IconLayoutDashboard, value: "home" },
-    { name: "Chat", href: "/chat", icon: IconMessages, value: "chat" },
     { name: "Goals", href: "/goals", icon: IconTargetArrow, value: "goals" },
+    { name: "Chat", href: "/chat", icon: IconMessages, value: "chat" },
     {
       name: "Settings",
       href: "/settings",
