@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +16,43 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
+import { useState } from "react";
+import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get("name") as string;
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      await signUp(email, password, name);
+      toast.success("Account created successfully", {
+        description: "Welcome to Kolesh! Redirecting you to login...",
+        position: "bottom-center",
+      });
+      setTimeout(() => router.push("/login"), 1500);
+    } catch (err: any) {
+      toast.error("Sign up failed", {
+        description:
+          err.message || "An unexpected error occurred. Check your connection.",
+        position: "bottom-center",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -29,17 +63,24 @@ export function SignupForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSignUp}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                <Input id="name" type="text" placeholder="John Doe" required />
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="John Doe"
+                  required
+                />
               </Field>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
                 />
@@ -48,7 +89,13 @@ export function SignupForm({
                 <Field className="grid grid-cols-1">
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input id="password" type="password" required />
+
+                    <Input
+                      id="password"
+                      type="password"
+                      name="password"
+                      required
+                    />
                   </Field>
                 </Field>
                 <FieldDescription>
@@ -56,7 +103,9 @@ export function SignupForm({
                 </FieldDescription>
               </Field>
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button type="submit">
+                  {loading ? "Creating Account..." : "Sign Up"}
+                </Button>
                 <FieldDescription className="text-center">
                   Already have an account? <a href="login">Sign in</a>
                 </FieldDescription>

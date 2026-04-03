@@ -14,8 +14,8 @@ enum Gender {
 model User {
   id               String     @id
   name             String
-  age              Int
-  gender           Gender
+  age              Int?
+  gender           Gender?
   email            String
   emailVerified    Boolean    @default(false)
   image            String?

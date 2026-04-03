@@ -6,7 +6,7 @@ import { Server as SocketServer } from "socket.io";
 import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import prisma from "./lib/prisma.js";
-
+import "dotenv/config";
 const app: Application = express();
 const httpServer = createServer(app);
 
@@ -26,7 +26,10 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.all(/^\/api\/auth\/.*$/, toNodeHandler(auth));
-
+console.log(
+  "Checking DB URL:",
+  process.env.DATABASE_URL ? "Defined ✅" : "UNDEFINED ❌",
+);
 app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });

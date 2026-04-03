@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,11 +15,46 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+//react import
+import { useState } from "react";
+//better auth imports
+import { signIn } from "@/lib/auth-client";
+//next imports
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      await signIn(email, password);
+      toast.success("Logged in successfully", {
+        description:
+          "Welcome to Kolesh, Redirecting to your personal dashboard...",
+        position: "bottom-center",
+      });
+      setTimeout(() => router.push("/"), 1500);
+    } catch (err: any) {
+      toast.error("Login  failed", {
+        description:
+          err.message || "An unexpected error occurred. Check your connection.",
+        position: "bottom-center",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -29,13 +65,14 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleLogin}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
                 />
@@ -50,13 +87,11 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input name="password" id="password" type="password" required />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
-                <Button variant="outline" type="button">
-                  Login with Google
-                </Button>
+
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <a href="signup">Sign up</a>
                 </FieldDescription>
