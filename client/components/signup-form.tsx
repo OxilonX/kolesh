@@ -14,10 +14,19 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import {
+  Select,
+  SelectGroup,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
 import { useState } from "react";
-import { signUp } from "@/lib/auth-client";
+import { signUp, updateUserProfile } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -26,6 +35,7 @@ export function SignupForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [loading, setLoading] = useState(false);
+  const [gender, setGender] = useState("MALE");
   const router = useRouter();
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,8 +46,18 @@ export function SignupForm({
       const name = formData.get("name") as string;
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
+      const age = formData.get("age") as string;
 
-      await signUp(email, password, name);
+      const userData = await signUp(email, password, name);
+
+      if (userData?.user?.id) {
+        await updateUserProfile(
+          userData.user.id,
+          parseInt(age),
+          gender as "MALE" | "FEMALE",
+        );
+      }
+
       toast.success("Account created successfully", {
         description: "Welcome to Kolesh! Redirecting you to login...",
         position: "bottom-center",
@@ -85,6 +105,38 @@ export function SignupForm({
                   required
                 />
               </Field>
+              <div className="grid grid-cols-2 gap-4">
+                <Field>
+                  <FieldLabel>Gender</FieldLabel>
+                  <Select
+                    name="gender"
+                    value={gender}
+                    onValueChange={setGender}
+                  >
+                    <SelectTrigger className="w-full ">
+                      <SelectValue placeholder="Select a Gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Gender</SelectLabel>
+                        <SelectItem value="MALE">Male</SelectItem>
+                        <SelectItem value="FEMALE">Female</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="age">Age</FieldLabel>
+                  <Input
+                    id="age"
+                    type="number"
+                    name="age"
+                    placeholder="18"
+                    required
+                  />
+                </Field>
+              </div>
               <Field>
                 <Field className="grid grid-cols-1">
                   <Field>

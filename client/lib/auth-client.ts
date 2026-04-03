@@ -17,7 +17,11 @@ export async function signIn(email: string, password: string) {
   return data;
 }
 
-export async function signUp(email: string, password: string, name: string) {
+export async function signUp(
+  email: string,
+  password: string,
+  name: string,
+) {
   const { data, error } = await authClient.signUp.email({
     email,
     password,
@@ -25,6 +29,24 @@ export async function signUp(email: string, password: string, name: string) {
   });
   if (error) throw error;
   return data;
+}
+
+export async function updateUserProfile(
+  userId: string,
+  age: number,
+  gender: "MALE" | "FEMALE",
+) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ age, gender }),
+    },
+  );
+  if (!response.ok) throw new Error("Failed to update profile");
+  return response.json();
 }
 
 export const {

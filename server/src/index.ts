@@ -34,6 +34,26 @@ app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
+app.patch("/api/users/:userId/profile", async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId as string;
+    const { age, gender } = req.body;
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        age: age ? parseInt(age) : undefined,
+        gender: gender || undefined,
+      },
+    });
+
+    res.json({ user: updatedUser });
+  } catch (error) {
+    console.error("Profile update error:", error);
+    res.status(500).json({ error: "Failed to update profile" });
+  }
+});
+
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
 
