@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
-//local comps imports
 
-import { ThemeProvider } from "@/contexts/ThemeProvider";
+import { Providers } from "./providers";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -29,7 +28,7 @@ export default function RootLayout({
       className={`${josefin.variable} h-full antialiased dark`}
     >
       <body className="h-screen w-full overflow-hidden bg-background">
-        <ThemeProvider>{children}</ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -10,11 +10,12 @@ import {
   IconSettings,
   IconFlag,
 } from "@tabler/icons-react";
-//shadcn imports
-import { Button } from "../ui/button";
-//local comps imports
+
+import { Button } from "@/components/ui/button";
+
 import SelectLanguage from "./SelectLanguage";
 import ThemeToggle from "./ThemeToggle";
+
 export default function Navbar() {
   const pathname = usePathname();
 
@@ -41,6 +42,7 @@ export default function Navbar() {
           <ThemeToggle />
         </div>
       </div>
+
       {navItems.map((item) => {
         const isActive = pathname === item.href;
 
