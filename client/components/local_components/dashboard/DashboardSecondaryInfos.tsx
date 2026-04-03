@@ -15,6 +15,7 @@ const DashboardSecondaryInfos = () => {
               src="/images/weather_default.webp"
               alt="Weather"
               fill
+              sizes="100px"
               priority
               className="object-contain relative z-10 drop-shadow-xl animate-in fade-in zoom-in duration-1000"
             />
