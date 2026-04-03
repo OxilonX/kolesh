@@ -17,23 +17,39 @@ export async function signIn(email: string, password: string) {
   return data;
 }
 
+interface SignUpResponse {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    emailVerified: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    image?: string | null;
+  };
+}
+
 export async function signUp(
   email: string,
   password: string,
   name: string,
-) {
+): Promise<SignUpResponse> {
   const { data, error } = await authClient.signUp.email({
     email,
     password,
     name,
   });
-  if (error) throw error;
-  return data;
+  if (error) {
+    console.error("Signup error details:", error);
+    throw error;
+  }
+  if (!data) throw new Error("Signup failed: no data returned");
+  return data as SignUpResponse;
 }
 
 export async function updateUserProfile(
   userId: string,
-  age: number,
+  age: string,
   gender: "MALE" | "FEMALE",
 ) {
   const response = await fetch(

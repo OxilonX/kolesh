@@ -12,8 +12,8 @@ enum Gender {
 }
 
 model User {
-  id               String     @id
-  name             String
+  id               String     @id @default(cuid())
+  name             String?
   age              String?    @default("18")
   gender           Gender?    @default(MALE)
   email            String
@@ -21,6 +21,7 @@ model User {
   image            String?
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
+  country          String?    @default("dz")
   sessions         Session[]
   accounts         Account[]
   settings         Settings[]
@@ -35,7 +36,7 @@ model User {
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @default(cuid())
   expiresAt DateTime
   token     String
   createdAt DateTime @default(now())
@@ -51,7 +52,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id
+  id                    String    @id @default(cuid())
   accountId             String
   providerId            String
   userId                String
@@ -71,7 +72,7 @@ model Account {
 }
 
 model Verification {
-  id         String   @id
+  id         String   @id @default(cuid())
   identifier String
   value      String
   expiresAt  DateTime

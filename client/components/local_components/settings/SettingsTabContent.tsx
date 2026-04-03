@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 //import local comps
 import ThemeToggle from "../ThemeToggle";
+import LogoutBtn from "./LogoutBtn";
 //icons imports
 import { IconLogout, IconPencil } from "@tabler/icons-react";
 const SettingsTabContent = () => {
@@ -114,9 +115,7 @@ const SettingsTabContent = () => {
           <p className="text-base text-destructive font-medium">
             End your session
           </p>
-          <Button variant={"destructive"} className="hover:bg-destructive/80">
-            <IconLogout /> Logout
-          </Button>
+          <LogoutBtn />
         </div>
       </div>
     </div>

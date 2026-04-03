@@ -42,7 +42,7 @@ app.patch("/api/users/:userId/profile", async (req: Request, res: Response) => {
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
-        age: age ? parseInt(age) : undefined,
+        age: age || undefined,
         gender: gender || undefined,
       },
     });

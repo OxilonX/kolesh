@@ -50,13 +50,15 @@ export function SignupForm({
 
       const userData = await signUp(email, password, name);
 
-      if (userData?.user?.id) {
-        await updateUserProfile(
-          userData.user.id,
-          parseInt(age),
-          gender as "MALE" | "FEMALE",
-        );
+      if (!userData || !userData.user) {
+        throw new Error("Signup failed: no user data returned");
       }
+
+      await updateUserProfile(
+        userData.user.id,
+        age.toString(),
+        gender as "MALE" | "FEMALE",
+      );
 
       toast.success("Account created successfully", {
         description: "Welcome to Kolesh! Redirecting you to login...",
@@ -130,7 +132,8 @@ export function SignupForm({
                   <FieldLabel htmlFor="age">Age</FieldLabel>
                   <Input
                     id="age"
-                    type="number"
+                    defaultValue={"18"}
+                    type="text"
                     name="age"
                     placeholder="18"
                     required
