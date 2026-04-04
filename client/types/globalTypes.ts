@@ -1,4 +1,4 @@
-interface userType {
+export interface userType {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -7,5 +7,6 @@ interface userType {
   name: string;
   image?: string | null | undefined;
   gender?: string;
-  age?: number;
+  age?: string;
+  country?: string;
 }

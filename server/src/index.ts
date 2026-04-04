@@ -7,6 +7,8 @@ import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import prisma from "./lib/prisma.js";
 import "dotenv/config";
+//routes imports
+import userRoutes from "./routes/userRoutes.js";
 const app: Application = express();
 const httpServer = createServer(app);
 
@@ -34,25 +36,9 @@ app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
-app.patch("/api/users/:userId/profile", async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.userId as string;
-    const { age, gender } = req.body;
 
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: {
-        age: age || undefined,
-        gender: gender || undefined,
-      },
-    });
-
-    res.json({ user: updatedUser });
-  } catch (error) {
-    console.error("Profile update error:", error);
-    res.status(500).json({ error: "Failed to update profile" });
-  }
-});
+//use routes
+app.use("/api/users", userRoutes);
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

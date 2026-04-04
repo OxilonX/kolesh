@@ -11,7 +11,8 @@ import { useState } from "react";
 import { useSessionContext } from "@/app/providers";
 import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
-
+//types imports
+import { userType } from "@/types/globalTypes";
 const DashboardMainInfo = () => {
   const { session, isPending } = useSessionContext();
   const router = useRouter();
@@ -24,7 +25,6 @@ const DashboardMainInfo = () => {
     );
   const user: userType | undefined = session?.user;
   if (!user) return router.push("/login");
-  console.log(user);
 
   return (
     <Card className="h-full w-full bg-card-secondary">
