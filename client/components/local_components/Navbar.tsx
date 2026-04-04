@@ -43,13 +43,15 @@ import { BASE_URL } from "@/utils/getBaseUrl";
 import { useSessionContext } from "@/app/providers";
 
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { userType } from "@/types/globalTypes";
 export default function Navbar() {
   const { session, isPending } = useSessionContext();
   const [selectedCountry, setSelectedCountry] = useState({
     name: "Algeria",
     code: "DZ",
   });
+  const user: userType | undefined = session?.user;
   const pathname = usePathname();
   const navItems = [
     { name: "Dashboard", href: "/", icon: IconLayoutDashboard, value: "home" },
@@ -62,6 +64,12 @@ export default function Navbar() {
       value: "settings",
     },
   ];
+  useEffect(() => {
+    if (isPending) return;
+    const countryCode = user?.country;
+    if (countryCode)
+      setSelectedCountry((prev) => ({ ...prev, code: countryCode }));
+  }, [session]);
   const updateCountry = async (newCode: string) => {
     if (!session?.user?.id) {
       return toast.error("Login first please.", { position: "bottom-left" });
@@ -71,8 +79,6 @@ export default function Navbar() {
     if (!countryObj) return;
 
     try {
-      setSelectedCountry(countryObj);
-
       const response = await axios.put(
         `${BASE_URL}/users/country`,
         {
@@ -82,8 +88,13 @@ export default function Navbar() {
           withCredentials: true,
         },
       );
+      if (!response)
+        return toast.error("Country update failed", {
+          position: "bottom-left",
+        });
+      setSelectedCountry(countryObj);
 
-      toast.success("Country updated successfully", {
+      return toast.success("Country updated successfully", {
         position: "bottom-left",
       });
     } catch (error) {
@@ -108,7 +119,9 @@ export default function Navbar() {
             </DialogHeader>
             <Select value={selectedCountry.code} onValueChange={updateCountry}>
               <SelectTrigger className="w-full max-w-48">
-                <SelectValue placeholder="Select a Country" />
+                <SelectValue placeholder="Select a Country">
+                  {selectedCountry.code}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

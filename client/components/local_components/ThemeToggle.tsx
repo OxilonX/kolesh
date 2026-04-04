@@ -4,19 +4,33 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import axios from "axios";
+import { BASE_URL } from "@/utils/getBaseUrl";
+import { toast } from "sonner";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
   useEffect(() => setMounted(true), []);
   if (!mounted) return <div className="h-8 w-14" />;
-
   const isDark = theme === "dark";
-
+  const handleThemeToggleBtnClick = async () => {
+    try {
+      const response = await axios.put(`${BASE_URL}/api/settings/theme`, {
+        data: isDark,
+      });
+      if (!response)
+        return toast.warning("Failed to switch theme, Internal server error.", {
+          position: "bottom-right",
+        });
+      setTheme(isDark ? "light" : "dark");
+    } catch {
+      toast.error("Failed to switch theme.", { position: "bottom-right" });
+    }
+  };
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleThemeToggleBtnClick}
       className={cn(
         "cursor-pointer relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none ",
         isDark ? "bg-primary/20" : "bg-muted",

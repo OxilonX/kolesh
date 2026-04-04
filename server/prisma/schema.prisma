@@ -112,8 +112,8 @@ model Tasks {
   createdAt DateTime @default(now())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
-  goalsId   String
-  goals     Goals    @relation(fields: [goalsId], references: [id])
+  goalsId   String?
+  goals     Goals?   @relation(fields: [goalsId], references: [id])
 
   @@map("tasks")
 }

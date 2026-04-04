@@ -9,6 +9,8 @@ import prisma from "./lib/prisma.js";
 import "dotenv/config";
 //routes imports
 import userRoutes from "./routes/userRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
+
 const app: Application = express();
 const httpServer = createServer(app);
 
@@ -36,9 +38,9 @@ app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
-
 //use routes
 app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

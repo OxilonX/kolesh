@@ -6,13 +6,13 @@ import DashboardCalendar from "@/components/local_components/dashboard/Dashboard
 const Dashboard = () => {
   return (
     <div className="grid grid-cols-1 grid-rows-[1fr_auto] h-full w-full gap-4 p-4 box-border overflow-y-auto">
-      <div className="grid grid-cols-[1fr_300px] gap-6 shrink-0">
+      <div className="grid grid-cols-[1fr_316px] gap-6 shrink-0 ">
         <DashboardMainInfo />
         <DashboardSecondaryInfos />
       </div>
-      <div className="flex-1 min-h-0 grid grid-cols-[1fr_300px]   gap-6 overflow-y-auto">
-        <div className="flex gap-4 min-h-0 overflow-hidden">
-          <div className="flex-1 min-h-0 overflow-hidden">
+      <div className="flex-1 min-h-0 grid grid-cols-[1fr_300px] gap-6 overflow-y-auto">
+        <div className="flex  gap-6  min-h-0 overflow-hidden w-full">
+          <div className="flex-1 min-h-0 overflow-hidden w-full">
             <DashboardTasks
               dummyTasks={[
                 {
@@ -31,7 +31,7 @@ const Dashboard = () => {
               ]}
             />
           </div>
-          <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="flex-1 min-h-0 overflow-hidden w-full">
             <DashboardGoals
               dummyGoals={[
                 {
