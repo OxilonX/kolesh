@@ -16,7 +16,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
     res.json({ user: updatedUser });
   } catch (error) {
-    console.error("Profile update error:", error);
     res.status(500).json({ error: "Failed to update profile" });
   }
 };
@@ -38,7 +37,6 @@ export const updateUserCountry = async (req: Request, res: Response) => {
 
     res.status(200).json({ msg: "country updated successfuly" });
   } catch (error) {
-    console.error("Profile update error:", error);
-    res.status(500).json({ error: "Failed to update profile" });
+    res.status(500).json({ error: "Failed to update country" });
   }
 };

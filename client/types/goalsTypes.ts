@@ -6,7 +6,14 @@ export interface goalsItemProps {
   taskNumber: number;
 }
 export interface tasksProp {
+  id: string;
   name: string;
-  date: string;
+  createdAt: string;
+  isDone: boolean;
+}
+export interface tasksType {
+  id: string;
+  name: string;
+  createdAt: string;
   isDone: boolean;
 }

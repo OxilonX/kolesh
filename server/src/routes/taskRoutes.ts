@@ -11,7 +11,7 @@ import {
 const router = Router();
 
 //POST Reqs
-router.post("/", requireAuth, addTask);
+router.post("/", addTask);
 
 //GET Reqs
 router.get("/", requireAuth, getTasks);

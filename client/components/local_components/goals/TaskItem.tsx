@@ -20,7 +20,7 @@ const TaskItem = ({ tasksProp }: { tasksProp: tasksProp }) => {
             {tasksProp.name}
           </p>
           <span className="text-xs text-muted-foreground">
-            {tasksProp.date}
+            {tasksProp.createdAt}
           </span>
         </div>
       </div>

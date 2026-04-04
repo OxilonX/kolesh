@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
@@ -36,6 +36,37 @@ console.log(
 );
 app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
+});
+
+// Debug route to check cookies
+app.get("/api/debug-cookies", (req: Request, res: Response) => {
+  res.json({
+    cookies: req.headers.cookie,
+    cookieHeader: req.headers.cookie,
+    hasSessionCookie: !!req.headers.cookie?.includes("better-auth"),
+  });
+});
+
+// Test route without auth to check if POST body is received
+app.post("/api/test-post", express.json(), (req: Request, res: Response) => {
+  res.json({
+    receivedBody: req.body,
+    contentType: req.headers["content-type"],
+  });
+});
+
+// Special debug route for tasks that logs everything
+app.post("/api/tasks-debug", express.json(), (req: Request, res: Response) => {
+  console.log("[tasks-debug] Body:", req.body);
+  console.log("[tasks-debug] Headers:", req.headers);
+  console.log("[tasks-debug] Cookie:", req.headers.cookie);
+  res.json({ debug: "logged" });
+});
+
+// Global error handler
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error("[Global Error]:", err);
+  res.status(500).json({ error: err.message, stack: err.stack });
 });
 
 //use routes

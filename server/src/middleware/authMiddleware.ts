@@ -37,8 +37,7 @@ export const requireAuth = async (
     });
 
     if (!session || !session.user) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
+      return res.status(401).json({ error: "Unauthorized - No valid session", debug: "Session not found" });
     }
 
     req.user = {
@@ -48,7 +47,8 @@ export const requireAuth = async (
     };
 
     next();
-  } catch (error) {
-    res.status(401).json({ error: "Unauthorized" });
+  } catch (error: any) {
+    console.error("[requireAuth] Error:", error.message);
+    return res.status(401).json({ error: "Unauthorized", msg: error.message });
   }
 };

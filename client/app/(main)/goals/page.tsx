@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import GoalsCard from "@/components/local_components/goals/GoalsCard";
 import GoalsSearch from "@/components/local_components/goals/GoalsSearch";
 import TasksCard from "@/components/local_components/goals/TasksCard";
+import GoalsWrapper from "@/components/local_components/goals/GoalsWrapper";
+
 const GoalsPage = () => {
   return (
+    <GoalsWrapper>
     <div className="h-[calc(100vh-2.5rem)] px-4 py-4">
       <Card className="w-full h-full ">
         <CardContent className="flex flex-col h-full">
@@ -33,7 +36,7 @@ const GoalsPage = () => {
                 <GoalsSearch isGoals={false} />
               </div>
 
-              <div className="h-full overflow-y-auto no-scr">
+              <div className="h-full pt-4 overflow-y-auto no-scr">
                 <TasksCard />
               </div>
             </TabsContent>
@@ -41,6 +44,7 @@ const GoalsPage = () => {
         </CardContent>
       </Card>
     </div>
+    </GoalsWrapper>
   );
 };
 

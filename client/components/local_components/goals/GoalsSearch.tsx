@@ -15,7 +15,42 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 //icons imports
 import { IconSearch, IconFilter, IconPlus } from "@tabler/icons-react";
+//react imports
+import { useState } from "react";
+import { toast } from "sonner";
+import axios from "axios";
+import { BASE_URL } from "@/utils/getBaseUrl";
+import { tasksType } from "@/types/goalsTypes";
+import { useGoalsContext } from "@/app/contexts/GoalsContext";
+
 const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
+  const { setTasks } = useGoalsContext();
+  const [taskInput, setTaskInput] = useState<string>("");
+  const handleAddTaskClick = () => {
+    if (!taskInput.trim())
+      return toast.error("Enter Task content first in the input above.", {
+        position: "bottom-right",
+      });
+    const addTask = async (): Promise<any> => {
+      const response = await axios.post(
+        `${BASE_URL}/tasks`,
+        { name: taskInput },
+        { withCredentials: true },
+      );
+      const task: tasksType = response.data.task;
+      setTasks((prev: tasksType[]) => [...prev, task]);
+      return response.data.task;
+    };
+
+    toast.promise(addTask(), {
+      loading: "Addid your new task...",
+      success: (data) => {
+        setTaskInput("");
+        return `Successfully added ${data.name}`;
+      },
+      error: "Failed to add task.",
+    });
+  };
   return (
     <div className="flex items-center  gap-2">
       <div className="relative  flex items-center w-full">
@@ -61,6 +96,8 @@ const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
             <Input
               name="name"
               id="title"
+              value={taskInput}
+              onChange={(e) => setTaskInput(e.target.value)}
               placeholder={
                 !isGoals
                   ? "e.g., Clean the dishes"
@@ -79,7 +116,16 @@ const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
                 Close
               </Button>
             </DialogClose>
-            <Button className="px-6 py-4">
+            <Button
+              onClick={
+                isGoals
+                  ? () => {
+                      return null;
+                    }
+                  : handleAddTaskClick
+              }
+              className="px-6 py-4"
+            >
               Add {isGoals ? "Goal" : "Task"}
             </Button>
           </div>
