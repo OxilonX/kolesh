@@ -3,6 +3,7 @@ import { requireAuth } from "../middleware/authMiddleware";
 //controllers imports
 import {
   addTask,
+  checkTask,
   deleteTask,
   getTasks,
   updateTask,
@@ -11,12 +12,13 @@ import {
 const router = Router();
 
 //POST Reqs
-router.post("/", addTask);
+router.post("/", requireAuth, addTask);
 
 //GET Reqs
 router.get("/", requireAuth, getTasks);
 
 //PUT Reqs
+router.put("/check/:taskId", requireAuth, checkTask);
 router.put("/:taskId", requireAuth, updateTask);
 
 //DELETE Reqs

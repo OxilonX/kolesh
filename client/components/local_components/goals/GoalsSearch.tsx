@@ -26,6 +26,7 @@ import { useGoalsContext } from "@/app/contexts/GoalsContext";
 const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
   const { setTasks } = useGoalsContext();
   const [taskInput, setTaskInput] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
   const handleAddTaskClick = () => {
     if (!taskInput.trim())
       return toast.error("Enter Task content first in the input above.", {
@@ -46,6 +47,7 @@ const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
       loading: "Addid your new task...",
       success: (data) => {
         setTaskInput("");
+        setOpen(false);
         return `Successfully added ${data.name}`;
       },
       error: "Failed to add task.",
@@ -70,7 +72,7 @@ const GoalsSearch = ({ isGoals }: { isGoals: boolean }) => {
       >
         <IconFilter className="cursor-pointer size-6  transition-all duration-300" />
       </Button>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="uppercase py-6 hover:bg-primary/80 font-bold px-4 ">
             <IconPlus className="size-6 " />

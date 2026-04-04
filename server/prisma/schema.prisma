@@ -178,7 +178,7 @@ model Choices {
 model Settings {
   id      String    @id @default(cuid())
   userId  String    @unique
-  theme   String    @default("main")
+  theme   String    @default("default")
   mode    String    @default("dark")
   user    User      @relation(fields: [userId], references: [id])
   socials Socials[]

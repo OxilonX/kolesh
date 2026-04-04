@@ -3,6 +3,7 @@ import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 
 import { Providers } from "./providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
     >
       <body className="h-screen w-full overflow-hidden bg-background">
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ import "dotenv/config";
 //routes imports
 import userRoutes from "./routes/userRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import settingsRoutes from "./routes/settingsRoutes.js";
 
 const app: Application = express();
 const httpServer = createServer(app);
@@ -47,22 +48,6 @@ app.get("/api/debug-cookies", (req: Request, res: Response) => {
   });
 });
 
-// Test route without auth to check if POST body is received
-app.post("/api/test-post", express.json(), (req: Request, res: Response) => {
-  res.json({
-    receivedBody: req.body,
-    contentType: req.headers["content-type"],
-  });
-});
-
-// Special debug route for tasks that logs everything
-app.post("/api/tasks-debug", express.json(), (req: Request, res: Response) => {
-  console.log("[tasks-debug] Body:", req.body);
-  console.log("[tasks-debug] Headers:", req.headers);
-  console.log("[tasks-debug] Cookie:", req.headers.cookie);
-  res.json({ debug: "logged" });
-});
-
 // Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error("[Global Error]:", err);
@@ -72,6 +57,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 //use routes
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/settings", settingsRoutes);
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

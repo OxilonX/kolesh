@@ -7,23 +7,59 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { BASE_URL } from "@/utils/getBaseUrl";
 import { toast } from "sonner";
+import { useSessionContext } from "@/app/providers";
+
+const api = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
 
 export default function ThemeToggle() {
+  const { session, isPending: sessionPending } = useSessionContext();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="h-8 w-14" />;
-  const isDark = theme === "dark";
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    if (sessionPending) return;
+
+    if (!session) {
+      setMounted(true);
+      return;
+    }
+
+    const fetchTheme = async () => {
+      try {
+        const response = await api.get("/settings/theme");
+        const mode = response.data?.mode || "light";
+        setIsDark(mode === "dark");
+        setTheme(mode);
+      } finally {
+        setMounted(true);
+      }
+    };
+    fetchTheme();
+  }, [session, sessionPending, setTheme]);
+
+  if (!mounted) {
+    return <div className="h-8 w-14 animate-pulse rounded-full bg-muted" />;
+  }
+
   const handleThemeToggleBtnClick = async () => {
-    try {
-      const response = await axios.put(`${BASE_URL}/api/settings/theme`, {
-        data: isDark,
+    if (!session) {
+      toast.error("Please sign in to change theme", {
+        position: "bottom-right",
       });
+      return;
+    }
+    try {
+      const response = await api.put("/settings/theme", { data: isDark });
       if (!response)
         return toast.warning("Failed to switch theme, Internal server error.", {
           position: "bottom-right",
         });
       setTheme(isDark ? "light" : "dark");
+      setIsDark(!isDark);
     } catch {
       toast.error("Failed to switch theme.", { position: "bottom-right" });
     }
