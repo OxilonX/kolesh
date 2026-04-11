@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <body className="h-screen w-full overflow-hidden bg-background">
         <Providers>{children}</Providers>
-        <Toaster />
+        <Toaster duration={500} />
       </body>
     </html>
   );

@@ -1,9 +1,7 @@
 export interface goalsItemProps {
   name: string;
-  value: number;
   startDate: string;
   endDate: string;
-  taskNumber: number;
 }
 export interface tasksProp {
   id: string;
@@ -17,3 +15,13 @@ export interface tasksType {
   createdAt: string;
   isDone: boolean;
 }
+export interface goalType {
+  id: string;
+  name: string;
+  createdAt: string;
+  progress: number | 0;
+}
+export interface categoryType {
+  name: string;
+}
+export type Priority = "GOATED" | "MAJOR" | "VIBING" | "CASUAL" | "TRASH";

@@ -3,7 +3,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent } from "@/components/ui/card";
 const DashboardCalendar = () => {
   return (
-    <Card className="bg-card-secondary w-full h-[230px] overflow-y-auto no-scrollbar">
+    <Card className="bg-card-secondary w-full h-[230px] overflow-y-auto ">
       <CardContent className="h-full p-0">
         <Calendar
           mode="single"

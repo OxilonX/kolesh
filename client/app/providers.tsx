@@ -4,6 +4,8 @@ import { createContext, useContext, ReactNode } from "react";
 
 import { ThemeProvider } from "@/contexts/ThemeProvider";
 
+import { GoalsProvider } from "@/contexts/GoalsContext";
+
 import { authClient } from "@/lib/auth-client";
 
 const { useSession } = authClient;
@@ -31,7 +33,9 @@ function SessionProvider({ children }: { children: ReactNode }) {
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
-      <ThemeProvider>{children}</ThemeProvider>
+      <ThemeProvider>
+        <GoalsProvider>{children}</GoalsProvider>
+      </ThemeProvider>
     </SessionProvider>
   );
 }

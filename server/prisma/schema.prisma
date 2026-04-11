@@ -30,6 +30,7 @@ model User {
   sentRequests     Friends[]  @relation("SentRequests")
   receivedRequests Friends[]  @relation("ReceivedRequests")
   notes            Notes[]
+  categories       Category[]
 
   @@unique([email])
   @@map("user")
@@ -118,26 +119,36 @@ model Tasks {
   @@map("tasks")
 }
 
+enum Priority {
+  GOATED
+  MAJOR
+  VIBING
+  CASUAL
+  TRASH
+}
+
 model Goals {
   id         String    @id @default(cuid())
   name       String
   createdAt  DateTime  @default(now())
   endDate    DateTime?
-  priority   BigInt    @default(1000)
+  priority   Priority  @default(VIBING)
   userId     String
   user       User      @relation(fields: [userId], references: [id])
-  tasks      Tasks[]
   categoryId String
   categories Category  @relation(fields: [categoryId], references: [id])
+  tasks      Tasks[]
 
   @@map("goals")
 }
 
 model Category {
   id        String   @id @default(cuid())
-  name      String   @default("all")
+  name      String
   createdAt DateTime @default(now())
   goals     Goals[]
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("categories")
 }

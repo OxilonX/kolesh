@@ -11,6 +11,8 @@ import "dotenv/config";
 import userRoutes from "./routes/userRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import settingsRoutes from "./routes/settingsRoutes.js";
+import goalsRoutes from "./routes/goalRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 const app: Application = express();
 const httpServer = createServer(app);
@@ -58,6 +60,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/goals", goalsRoutes);
+app.use("/api/categories", categoryRoutes);
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);

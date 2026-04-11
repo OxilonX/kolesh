@@ -8,7 +8,7 @@ import { tasksProp } from "@/types/goalsTypes";
 import axios from "axios";
 import { BASE_URL } from "@/utils/getBaseUrl";
 import { toast } from "sonner";
-import { useGoalsContext } from "@/app/contexts/GoalsContext";
+import { useGoalsContext } from "@/contexts/GoalsContext";
 const TaskItem = ({ tasksProp }: { tasksProp: tasksProp }) => {
   const { setTasks } = useGoalsContext();
   const handleDeleteTaskClick = () => {
@@ -45,7 +45,7 @@ const TaskItem = ({ tasksProp }: { tasksProp: tasksProp }) => {
 
     toast.promise(checkTask(), {
       loading: "Saving status...",
-      success: "Synced!",
+      success: "Check sync",
       error: () => {
         setTasks((prev) =>
           prev.map((t) =>

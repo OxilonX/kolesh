@@ -7,31 +7,27 @@ import { IconPlus } from "@tabler/icons-react";
 //local comps imports
 import TaskItem from "./TaskItem";
 //contexts imports
-import { useGoalsContext } from "@/app/contexts/GoalsContext";
-//types imports
-import { tasksType } from "@/types/goalsTypes";
+import { useGoalsContext } from "@/contexts/GoalsContext";
 //utils imports
-import axios from "axios";
-import { BASE_URL } from "@/utils/getBaseUrl";
 import { toast } from "sonner";
 
 const TasksCard = () => {
-  const { tasks, setTasks } = useGoalsContext();
-  const fetchTasks = async (): Promise<any> => {
-    const response = await axios.get(`${BASE_URL}/tasks`, {
-      withCredentials: true,
-    });
-    setTasks(response.data.tasks);
-    return response.data.tasks;
-  };
+  const { tasks, fetchTasks, tasksLoaded } = useGoalsContext();
 
   useEffect(() => {
-    toast.promise(fetchTasks(), {
-      loading: "Syncing your dashboard...",
-      success: (data) => `Successfully loaded ${data.length} tasks`,
-      error: "Failed to fetch tasks.",
-    });
-  }, []);
+    if (!tasksLoaded) {
+      toast.promise(fetchTasks(), {
+        loading: "Syncing your dashboard...",
+        success: (data) => {
+          return Array.isArray(data)
+            ? `Successfully loaded ${data.length} tasks`
+            : `Goals Data synced`;
+        },
+        error: "Failed to fetch tasks.",
+        duration: 500,
+      });
+    }
+  }, [tasksLoaded, fetchTasks]);
   if (tasks.length < 1) {
     return (
       <div className="flex  items-center justify-center p-8 text-muted-foreground border border-dashed rounded-xl h-full">
